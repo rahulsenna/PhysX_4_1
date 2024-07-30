@@ -5,6 +5,7 @@
 pushd %~dp0
 set PHYSX_ROOT_DIR=%CD%
 popd
+SET PM_ANDROIDNDK_PATH="C:/Android/android-sdk/ndk/26.1.10909125"
 SET PHYSX_ROOT_DIR=%PHYSX_ROOT_DIR:\=/%
 SET PM_VSWHERE_PATH=%PHYSX_ROOT_DIR%/../externals/VsWhere
 SET PM_CMAKEMODULES_PATH=%PHYSX_ROOT_DIR%/../externals/CMakeModules
@@ -62,6 +63,11 @@ for /f "usebackq tokens=*" %%i in (`"%PM_vswhere_PATH%\VsWhere.exe  -version [16
 	set VS160PATH="%%i"	
 )	
 
+for /f "usebackq tokens=*" %%i in (`"%PM_vswhere_PATH%\VsWhere.exe  -version [17.0,18.0) -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath"`) do (
+  set Install2022Dir=%%i
+	set VS170PATH="%%i"	
+)	
+
 if exist "%Install2017Dir%\VC\Auxiliary\Build\Microsoft.VCToolsVersion.default.txt" (
   pushd "%Install2017Dir%\VC\Auxiliary\Build\"
   set /p Version=<Microsoft.VCToolsVersion.default.txt
@@ -81,6 +87,18 @@ if exist "%Install2019Dir%\VC\Auxiliary\Build\Microsoft.VCToolsVersion.default.t
 	if not %%x=="" (
 	  rem Example hardcodes x64 as the host and target architecture, but you could parse it from arguments
 	  set VS160CLPATH="%Install2019Dir%\VC\Tools\MSVC\%%x\bin\HostX64\x64\cl.exe"
+	)
+  )  
+  popd
+)
+
+if exist "%Install2022Dir%\VC\Auxiliary\Build\Microsoft.VCToolsVersion.default.txt" (
+  pushd "%Install2022Dir%\VC\Auxiliary\Build\"
+  set /p Version=<Microsoft.VCToolsVersion.default.txt
+  for /f "delims=" %%x in (Microsoft.VCToolsVersion.default.txt) do (
+	if not %%x=="" (
+	  rem Example hardcodes x64 as the host and target architecture, but you could parse it from arguments
+	  set VS170CLPATH="%Install2022Dir%\VC\Tools\MSVC\%%x\bin\HostX64\x64\cl.exe"
 	)
   )  
   popd
