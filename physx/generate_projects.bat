@@ -5,7 +5,7 @@
 pushd %~dp0
 set PHYSX_ROOT_DIR=%CD%
 popd
-SET PM_ANDROIDNDK_PATH="C:/Android/android-sdk/ndk/26.1.10909125"
+SET PM_ANDROIDNDK_PATH="C:\Android\android-sdk\ndk\android-ndk-r13b"
 SET PHYSX_ROOT_DIR=%PHYSX_ROOT_DIR:\=/%
 SET PM_VSWHERE_PATH=%PHYSX_ROOT_DIR%/../externals/VsWhere
 SET PM_CMAKEMODULES_PATH=%PHYSX_ROOT_DIR%/../externals/CMakeModules

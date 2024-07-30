@@ -166,7 +166,7 @@ class CMakePreset:
         elif self.compiler == 'xcode':
             outString = outString + '-G Xcode'
         elif self.targetPlatform == 'android':
-            outString = outString + '-G \"MinGW Makefiles\"'
+            outString = outString + '-G \"MSYS Makefiles\"'
         elif self.targetPlatform == 'linux':
             outString = outString + '-G \"Unix Makefiles\"'
         elif self.targetPlatform == 'linuxAarch64':
@@ -305,7 +305,7 @@ class CMakePreset:
                 outString = outString + ' -DANDROID_NDK=' + \
                     os.environ['PM_AndroidNDK_PATH']
                 outString = outString + ' -DCMAKE_MAKE_PROGRAM=\"' + \
-                    os.environ['PM_AndroidNDK_PATH'] + '\\prebuilt\\windows\\bin\\make.exe\"'
+                    os.environ['PM_AndroidNDK_PATH'] + '\\prebuilt\\windows-x86_64\\bin\\make.exe\"'
             return outString
         elif self.targetPlatform == 'linux':
             outString = outString + ' -DTARGET_BUILD_PLATFORM=linux'
